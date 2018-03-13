@@ -11,11 +11,13 @@ from matplotlib.animation import FuncAnimation
 f_a = 0.5
 f_b = 2
 def function(x):
+	'''
 	y = x * 0
 	for n in range(10):
 		y += np.power(f_a ,n) * np.cos( np.power(f_b,n) * np.pi * x)
 	return y
-
+	'''
+	return np.sin(x) + np.cos(x*x)
 
 def_range = (0,10)
 print('{0:-^40s}'.format("first generate"))
@@ -37,15 +39,15 @@ for _ in range(10):
 	model.add_FC(34)
 	model.add_activate(tf.nn.relu)
 '''
-'''
+
 for _ in range(5):
 	model.add_FC(50)
 	model.add_activate(tf.nn.relu)
-'''
 
+'''
 model.add_FC(3450)
 model.add_activate(tf.nn.relu)
-
+'''
 model.add_FC(1)
 sess = tf.Session()
 pred_y_ , train_step = model.get_train(sess)
@@ -72,10 +74,10 @@ for _ in range(200000):
 	if _ % 500 ==  0 : 
 		GIF.set_frame(x = allX.reshape(-1) , y = sess.run(pred_y_ , feed_dict={x:allX.reshape(-1,1)}))
 		
-model.save_model('model_1layers_test2')
+model.save_model('model_5layers')
 ############### Output Prepare ###################
 import csv 
-cout = csv.writer(open('error_table_1layers_test.csv' , 'w'))
+cout = csv.writer(open('error_table_5layers.csv' , 'w'))
 cout.writerows(error_table)
 
 pred_y = sess.run(pred_y_ , feed_dict={x:allX.reshape(-1,1)}).reshape(-1)
