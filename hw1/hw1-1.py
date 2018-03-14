@@ -12,11 +12,13 @@ f_a = 0.5
 f_b = 2
 def function(x):
 	'''
+	#function 1
 	y = x * 0
 	for n in range(10):
 		y += np.power(f_a ,n) * np.cos( np.power(f_b,n) * np.pi * x)
 	return y
 	'''
+	#funciton2
 	return np.sin(x) + np.cos(x*x)
 
 def_range = (0,10)
@@ -34,20 +36,21 @@ x = tf.placeholder( tf.float32 , [None , 1])
 y_ = tf.placeholder( tf.float32 , [None, 1])
 
 model = seq(x , y_ , 1)
-'''
-for _ in range(10):
-	model.add_FC(34)
-	model.add_activate(tf.nn.relu)
-'''
 
-for _ in range(5):
-	model.add_FC(50)
+choose_model = 2
+if choose_model == 1:
+	model.add_FC(3450)
 	model.add_activate(tf.nn.relu)
+elif choose_model == 2:
+	for layer in [67,70,76]:
+		model.add_FC(layer)
+		model.add_activate(tf.nn.relu)
+else:
+	for _ in range(5):
+		model.add_FC(50)
+		model.add_activate(tf.nn.relu)
 
-'''
-model.add_FC(3450)
-model.add_activate(tf.nn.relu)
-'''
+
 model.add_FC(1)
 sess = tf.Session()
 pred_y_ , train_step = model.get_train(sess)
@@ -74,10 +77,10 @@ for _ in range(200000):
 	if _ % 500 ==  0 : 
 		GIF.set_frame(x = allX.reshape(-1) , y = sess.run(pred_y_ , feed_dict={x:allX.reshape(-1,1)}))
 		
-model.save_model('model_5layers')
+model.save_model('model_3layers')
 ############### Output Prepare ###################
 import csv 
-cout = csv.writer(open('error_table_5layers.csv' , 'w'))
+cout = csv.writer(open('error_table_3layers.csv' , 'w'))
 cout.writerows(error_table)
 
 pred_y = sess.run(pred_y_ , feed_dict={x:allX.reshape(-1,1)}).reshape(-1)
