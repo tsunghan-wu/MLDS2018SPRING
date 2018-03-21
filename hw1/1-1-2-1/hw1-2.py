@@ -12,7 +12,7 @@ learning_rate = 1e-4
 
 x = tf.placeholder( tf.float32 , [ None , 28*28 ])
 y_= tf.placeholder( tf.float32 , [ None , 10 ])
-y = models.model1(x)
+y = models.model3(x)
 
 
 #### model compile ####
@@ -29,7 +29,7 @@ tf.global_variables_initializer().run(session=sess)
 # writer = tf.summary.FileWriter("/tmp/tensorflow/MNIST", sess.graph)
 
 error_table = []
-for i in range(30000):
+for i in range(100000):
 	batch = mnist.train.next_batch(100)
 	train_step.run(session = sess , feed_dict={
 			x : batch[0],
@@ -44,9 +44,9 @@ for i in range(30000):
 		print("step:%d,\tacc:%g,\tloss:%g" % (i,train_acc,np.mean(loss)))
 
 saver = tf.train.Saver()
-saver.save(sess,"cnn2_dim32/model.ckpt")
+saver.save(sess,"cnn2_dim48_42/model.ckpt")
 
 ############### Output Prepare ###################
 import csv 
-cout = csv.writer(open('error_table_cnn2_dim32.csv' , 'w'))
+cout = csv.writer(open('error_table_cnn2_dim48_42.csv' , 'w'))
 cout.writerows(error_table)
