@@ -10,7 +10,8 @@ mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
 # set training data (x, y)
 x = tf.placeholder(tf.float32, [None, 784])
 y_ = tf.placeholder(tf.float32, [None, 10])
-
+seed = 31416
+tf.set_random_seed(seed)
 model = seq(x , y_ , 784)
 for _ in range(2):
 	model.add_FC(10)
@@ -21,25 +22,31 @@ sess = tf.Session()
 pred_y_ , train_step = model.get_train(sess)
 tf.global_variables_initializer().run(session=sess)
 print("\n{0:-^40s}\n".format("all param:" + str(model.summary())))
+
+def gradient(sess, trainX, trainY):
+	grad_all = 0.0
+	for p in tf.trainable_variables():
+		grad = sess.run(tf.gradients(xs=p, ys=model.loss), feed_dict={x:trainX, y_:trainY})
+		grad = np.sum(np.square(grad))
+		grad_all += grad
+	return (grad_all ** 0.5)
+
+
 Acc = np.empty(shape=[0, 1])
 grad_norm = np.empty(shape=[0, 1])
 # var_grad = tf.gradients(loss, x)[0]
-for _ in range(2000):
+for _ in range(10000):
 	trainX , trainY = mnist.train.next_batch(1000)
 	sess.run(train_step,feed_dict={
 			x : trainX,
 			y_ : trainY
 		})
-	grad = sess.run(tf.gradients(model.loss, ???)[0], feed_dict={
-		x : trainX,
-		y_ : trainY
-	})
-
-	norm = np.sqrt(np.sum(np.square(grad)))
+	norm = gradient(sess, trainX, trainY)
 	accuracy = model.get_acc(mnist.train.images, mnist.train.labels)
 	Acc = np.append(Acc, np.array([accuracy])).reshape(-1, 1)
 	grad_norm = np.append(grad_norm, np.array([norm])).reshape(-1, 1)
 	if _ % 100 == 0:
+		print (norm)
 		print ("epoch %d acc %8g " %(_,accuracy))
 
 np.savetxt("csvdir/1-2_acc.csv", Acc)
