@@ -24,19 +24,19 @@ tf.global_variables_initializer().run(session=sess)
 print("\n{0:-^40s}\n".format("all param:" + str(model.summary())))
 
 def gradient(sess, trainX, trainY):
-	grad_all = 0.0
-	for p in tf.trainable_variables():
-		grad = sess.run(tf.gradients(xs=p, ys=model.loss), feed_dict={x:trainX, y_:trainY})
-		grad = np.sum(np.square(grad))
-		grad_all += grad
-	return (grad_all ** 0.5)
+	grad_all = []
+	grad = sess.run(model.grad_norm, feed_dict={x:trainX, y_:trainY})
+	for lay in grad:
+		grad_all += lay.flatten().tolist()
+	grad_all = np.sqrt(np.sum(np.square(grad_all)))
+	return grad_all 
 
 
 Acc = np.empty(shape=[0, 1])
 grad_norm = np.empty(shape=[0, 1])
 # var_grad = tf.gradients(loss, x)[0]
 for _ in range(10000):
-	trainX , trainY = mnist.train.next_batch(1000)
+	trainX , trainY = mnist.train.next_batch(100)
 	sess.run(train_step,feed_dict={
 			x : trainX,
 			y_ : trainY

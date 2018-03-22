@@ -33,6 +33,8 @@ class seq:
 		self.train_step = self.optimizer.minimize(self.loss)
 		self.correct_prediction = tf.equal(tf.argmax(self.y,1), tf.argmax(self.now_output, 1)) 
 		self.accuracy = tf.reduce_mean(tf.cast(self.correct_prediction, tf.float32))
+		self.trainable = tf.trainable_variables()
+		self.grad_norm = tf.gradients(xs=self.trainable, ys=self.loss)
 		return self.now_output,self.train_step
 
 	def get_loss(self , x , y):
@@ -52,15 +54,22 @@ class seq:
 	def load_model(self,path):
 		saver = tf.train.Saver()
 		saver.restore(self.sess, path + "/model.ckpt")
-	def save_whole_variable(self,path):
+	
+	def get_whole_variable(self):
 		param = np.empty(shape=[0, 1])
 		variables_names = [v.name for v in tf.trainable_variables()]
 		values = self.sess.run(variables_names)
 		for k, v in zip(variables_names, values):
 			param = np.append(param, v.reshape(-1, 1)).reshape(-1, 1)
+		return param
+		
+
+	def save_whole_variable(self,path):
+		param  = self.get_whole_variable()
 		F = open(path, 'a')
 		np.savetxt(F, param)
 		F.close()
+		
 	def save_one_layer(self,path):
 		param = np.empty(shape=[0, 1])
 		variables_names = ["Variable:0", "Variable_1:0"]
@@ -94,9 +103,6 @@ class gif_gen:
 
 	def update(self, i , label='epoch {0}'):
 		label = label.format(i*500)
-		
-		# 更新直线和x轴（用一个新的x轴的标签）。
-		# 用元组（Tuple）的形式返回在这一帧要被重新绘图的物体
 		self.pred_line.set_xdata(self.storage[i][0])
 		self.pred_line.set_ydata(self.storage[i][1])
 		self.ax.set_xlabel(label)
