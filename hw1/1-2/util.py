@@ -16,19 +16,19 @@ class seq:
 		self.y , self.input_shape = y , input_shape
 		
 
-	def add_FC(self,size):
-		self.now_output = FC_layer(self.input_shape,size,self.now_output)
+	def add_FC(self,size,stddev=0.1):
+		self.now_output = FC_layer(self.input_shape,size,self.now_output,0.1)
 		self.input_shape = size
 		self.now_param.append(self.input_shape)
 	
 	def add_activate(self , activator):
 		self.now_output = activator(self.now_output)
 
-	def get_train(self , sess_):
+	def get_train(self , sess_ , optimizer = tf.train.AdamOptimizer(0.01)):
 		self.sess = sess_
 		# self.loss = tf.reduce_mean(tf.square( self.now_output - self.y ))
 		self.loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(labels=self.y, logits=self.now_output))
-		self.optimizer = tf.train.AdamOptimizer(0.01)
+		self.optimizer = optimizer
 		#self.optimizer = tf.train.GradientDescentOptimizer(0.5)
 		self.train_step = self.optimizer.minimize(self.loss)
 		self.correct_prediction = tf.equal(tf.argmax(self.y,1), tf.argmax(self.now_output, 1)) 
