@@ -25,14 +25,6 @@ pred_y_ , train_step = model.get_train(sess,tf.train.AdamOptimizer(1e-3))
 tf.global_variables_initializer().run(session=sess)
 print("\n{0:-^40s}\n".format("all param:" + str(model.summary())))
 
-def gradient(sess, trainX, trainY):
-	grad_all = []
-	grad = sess.run(model.grad_norm, feed_dict={x:trainX, y_:trainY})
-	for lay in grad:
-		grad_all += lay.flatten().tolist()
-	grad_all = np.sqrt(np.sum(np.square(grad_all)))
-	return grad_all 
-
 
 Acc = []
 Loss = []
@@ -44,15 +36,15 @@ for _ in range(30000):
 			x : trainX,
 			y_ : trainY
 		})
-	norm = gradient(sess, trainX, trainY)
+	norm = model.get_grad_norm(trainX,trainY)
 	accuracy = model.get_acc(mnist.train.images, mnist.train.labels)
 	loss = model.get_loss(mnist.train.images, mnist.train.labels)
 	###
 	Acc.append(accuracy)
 	Loss.append(loss)
 	grad_norm.append(norm)
-	if _ % 100 == 0:
-		print ("epoch %d acc %8g  , norm %g" %(_,accuracy , norm))
+	if _ % 10 == 0:
+		print ("epoch %d acc %8g  , norm %g " %(_,accuracy , norm))
 
 np.savetxt("csvdir/1-2_acc.csv", np.array(Acc).reshape(-1,1))
 np.savetxt("csvdir/1-2_grad_norm.csv", np.array(grad_norm).reshape(-1,1))
