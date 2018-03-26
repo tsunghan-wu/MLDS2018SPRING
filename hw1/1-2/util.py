@@ -22,21 +22,27 @@ class seq:
 		else : 
 			self.tracable = tf.concat( [flat,self.tracable] , axis = 0 )
 			flat2 = tf.split(self.tracable , [now_params,-1] )[0]
+			print(tf.split(self.tracable , [now_params,-1] ))
+			print(self.tracable)
 			prototype = tf.reshape(flat2,shape)
 
 		return prototype 
 	'''
 	def create_variables(self,shape , dev):
-		now_params = np.prod(shape)
+		now_params = 1
+		for dim in shape:
+			now_params *= dim
+		print(now_params , shape)
 		flat = tf.Variable( tf.truncated_normal([now_params], stddev=dev))
-		sp = np.zeros(now_params,dtype=np.int32)  + 1 
-		sp[-1 ] = -1
+		sp = np.zeros(now_params,dtype=np.int32) + 1 
+		if now_params != 1:
+			sp[-1 ] = -1
 		all_shattered = tf.split(flat,sp)
 		self.tracablev2 += all_shattered
 		flat = tf.concat(all_shattered , axis=0)
 		prototype = tf.reshape(flat,shape)
 		return prototype 
-		
+	
 	def FC_layer(self,input_shape,neuron,inc , dev=0.1):
 		W =self.create_variables([input_shape,neuron], dev=dev)
 		b =self.create_variables([neuron], dev=dev)
@@ -60,17 +66,24 @@ class seq:
 		return self.grad_norm2
 
 	def get_loss_hesssians_init(self):
-		#print(self.tracablev2)
-		print('h start')
-		self.loss_hessians = tf.hessians(xs = self.tracablev2 , ys=self.loss)
-		print('h end')
+		table = []
+		print('compile hessians....')
+		for v1 in self.tracablev2:
+			row = []
+			for v2 in self.tracablev2:
+				row.append(tf.gradients(tf.gradients(self.loss, v2)[0], v1)[0])
+			row = tf.stack([t for t in 	row])
+			table.append(row)
+		table = tf.stack(table)
+		self.loss_hessians = table
+		print('compile hessians finished....')
 		return  self.loss_hessians
 
 	def eigen(self):
 		tf.self_adjoint_eig()
 
 	def get_grad_hessians(self , x , y):
-		return self.sess.run(self.second_order,feed_dict={
+		return self.sess.run(self.loss_hessians,feed_dict={
 				self.x : x,
 				self.y : y
 			})
@@ -82,7 +95,7 @@ class seq:
 				self.y : y
 			})
 	
-	def get_train(self , sess_ , optimizer = tf.train.AdamOptimizer(0.01)):
+	def get_train(self , sess_ , optimizer = tf.train.AdamOptimizer(0.01) ,needs_Hessians = False):
 		### normal train step ###
 		self.sess = sess_
 		self.loss = tf.reduce_mean(tf.square( self.now_output - self.y ))
@@ -93,7 +106,8 @@ class seq:
 		self.correct_prediction = tf.equal(tf.argmax(self.y,1), tf.argmax(self.now_output, 1)) 
 		self.accuracy = tf.reduce_mean(tf.cast(self.correct_prediction, tf.float32))
 		self.get_grad_norm_init()
-		self.get_loss_hesssians_init()
+		if needs_Hessians:
+			self.get_loss_hesssians_init()
 		
 		return self.now_output,self.train_step
 
