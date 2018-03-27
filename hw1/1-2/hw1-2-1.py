@@ -1,3 +1,4 @@
+### MLDS hw 1-2-1 training on MNIST ###
 import numpy as np
 import sys
 import tensorflow as tf
@@ -12,15 +13,13 @@ x = tf.placeholder(tf.float32, [None, 784])
 y_ = tf.placeholder(tf.float32, [None, 10])
 
 model = seq(x , y_ , 784)
-for _ in range(2):
-	model.add_FC(10)
+for _ in range(3):
+	model.add_FC(20)
 	model.add_activate(tf.nn.relu)
 
 ###########################
-times = 6
-seed = 2718
+times = 8
 ###########################
-tf.set_random_seed(seed)
 model.add_FC(10)
 sess = tf.Session()
 pred_y_ , train_step = model.get_train(sess)
@@ -28,7 +27,7 @@ tf.global_variables_initializer().run(session=sess)
 print("\n{0:-^40s}\n".format("all param:" + str(model.summary())))
 Acc = np.empty(shape=[0, 1])
 for _ in range(4000):
-	trainX , trainY = mnist.train.next_batch(1000)
+	trainX , trainY = mnist.train.next_batch(128)
 	sess.run(train_step,feed_dict={
 			x : trainX,
 			y_ : trainY

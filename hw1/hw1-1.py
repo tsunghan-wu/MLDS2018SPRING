@@ -64,7 +64,7 @@ tf.global_variables_initializer().run(session=sess)
 #model.load_model('model_1layers_test')
 GIF = gif_gen(def_range[0],def_range[1],0.00001 , allX , function(allX))
 error_table = []
-for _ in range(200000):
+for _ in range(20):
 	trainX , trainY = next_batch(10000,range=def_range)
 	sess.run(train_step,feed_dict={
 			x : trainX,
@@ -87,7 +87,7 @@ pred_y = sess.run(pred_y_ , feed_dict={x:allX.reshape(-1,1)}).reshape(-1)
 allX = allX.reshape(-1)
 allY = allY.reshape(-1)
 
-GIF.output()
+# GIF.output()
 plt.scatter(x=allX, y = allY , s = 1 , color='red')
 plt.scatter(x=allX, y = pred_y , s = 1 , color='blue')
 plt.savefig('final_pic.png')

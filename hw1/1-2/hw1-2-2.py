@@ -13,8 +13,8 @@ y_ = tf.placeholder(tf.float32, [None, 10])
 seed = 31416
 tf.set_random_seed(seed)
 model = seq(x , y_ , 784)
-for _ in range(2):
-	model.add_FC(10)
+for _ in range(3):
+	model.add_FC(100)
 	model.add_activate(tf.nn.relu)
 
 model.add_FC(10)
