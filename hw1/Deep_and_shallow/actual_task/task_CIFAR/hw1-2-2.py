@@ -3,10 +3,10 @@ import numpy as np
 import models
 #### data process ########
 def unpickle(file):
-    import pickle
-    with open(file, 'rb') as fo:
-        dict = pickle.load(fo, encoding='bytes')
-    return dict
+	import pickle
+	with open(file, 'rb') as fo:
+		dict = pickle.load(fo, encoding='bytes')
+	return dict
 
 all_data = None
 all_label = None
@@ -35,7 +35,7 @@ learning_rate = 1e-4
 
 x = tf.placeholder( tf.float32 , [ None , 32,32,3 ])
 y_= tf.placeholder( tf.float32 , [ None , 10 ])
-y = models.model1(x)
+y = models.model4(x)
 
 
 #### model compile ####
@@ -48,6 +48,19 @@ acc = tf.reduce_mean( tf.cast(correct_pred , tf.float32))
 sess = tf.Session()
 tf.global_variables_initializer().run(session=sess)
 
+def count_parameter():
+	total_parameters = 0
+	for variable in tf.trainable_variables():
+		# shape is an array of tf.Dimension
+		shape = variable.get_shape()
+		variable_parameters = 1
+		for dim in shape:
+			variable_parameters *= dim.value
+		total_parameters += variable_parameters
+	return (total_parameters)
+
+param = count_parameter()
+print ("parameter = ", param)
 # for tensorboard.
 # writer = tf.summary.FileWriter("/tmp/tensorflow/MNIST", sess.graph)
 
@@ -67,9 +80,9 @@ for i in range(100000):
 		print("step:%d,\tacc:%g,\tloss:%g" % (i,train_acc,np.mean(loss)))
 
 saver = tf.train.Saver()
-saver.save(sess,"cnn2_dim40/model.ckpt")
+saver.save(sess,"cnn3_dim30_30/model.ckpt")
 
 ############### Output Prepare ###################
 import csv 
-cout = csv.writer(open('error_table_cnn2_dim40.csv' , 'w'))
+cout = csv.writer(open('error_table_cnn3_dim30_30.csv' , 'w'))
 cout.writerows(error_table)
