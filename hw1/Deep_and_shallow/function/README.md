@@ -1,5 +1,4 @@
 # 1-1 Simulate a function
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 
 In this experiment, we will train the machine to fit two functions and see whether deep network structure is better than the shallow one.
 
@@ -8,7 +7,7 @@ In this experiment, we will train the machine to fit two functions and see wheth
 1. nwtwork structure: 1-layer, 3-layer, 5-layer
 2. parameter: about 10350 parameters
 
-## 2. $$f(x) = \sum_{n=0}^{10} (\frac{1}{2})^n cos(2^n \pi x)$$
+## 2. $f(x) = \sum_{n=0}^{10} (\frac{1}{2})^n cos(2^n \pi x)$
 
 In the directory `function1` are some files below:
 
@@ -23,7 +22,7 @@ In the directory `function1` are some files below:
 4. png file: The outcome
 
 
-## 3. $$f(x) = sin(x) + cos(x^2)$$
+## 3. $f(x) = sin(x) + cos(x^2)$
 
 In the directory `function2` are some files below:
 
