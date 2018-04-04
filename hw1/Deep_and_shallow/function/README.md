@@ -1,9 +1,14 @@
-# 1-1 Train on an actual task
+# 1-1 Simulate a function
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 
 In this experiment, we will train the machine to fit two functions and see whether deep network structure is better than the shallow one.
 
+## 1. Trail Network Structure
 
-## $f(x) = \sum_{n=0}^{10} (\frac{1}{2})^n cos(2^n \pi x)$
+1. nwtwork structure: 1-layer, 3-layer, 5-layer
+2. parameter: about 10350 parameters
+
+## 2. $$f(x) = \sum_{n=0}^{10} (\frac{1}{2})^n cos(2^n \pi x)$$
 
 In the directory `function1` are some files below:
 
@@ -18,7 +23,7 @@ In the directory `function1` are some files below:
 4. png file: The outcome
 
 
-## $f(x) = sin(x) + cos(x^2)$
+## 3. $$f(x) = sin(x) + cos(x^2)$$
 
 In the directory `function2` are some files below:
 
@@ -32,7 +37,7 @@ In the directory `function2` are some files below:
 3. csv file: All `.csv` file are the output of `summary.py`
 4. png file: The outcome
 
-## Result
+## 4. Result
 
 Deep is better than shallow in this experiment <3
 
