@@ -19,14 +19,15 @@ out = TSNE(dim).fit_transform(out)
 print('finished TSNE')
 #tsne = TSNE(dim)
 '''
-out = np.load('pca_tsne_out' + str(dim) +'.npy')
+# out = np.load('pca_tsne_out' + str(dim) +'.npy')
+out = np.load("pca_tsne_final.npy")
 #np.save('tsne_out' + str(dim),out)
 #np.save('pca_tsne_out' + str(dim),out)
 
 print('finish fitting')
 #print(out.shape)
 #exit()
-dim = 3
+dim = 2
 if dim == 3: # 3D
 	fig = plt.figure()
 	ax = Axes3D(fig)
@@ -89,7 +90,7 @@ if dim == 2: #2D
 	Y = out[:,1]
 	for x,y,l in zip(X,Y,loss):
 		red = len(loss_p[loss_p < l])
-		plt.scatter(x, y , color=[(red/10 , 0 , 1-red/10)])
+		plt.scatter(x, y , color=[(red/10 , 0 , 1-red/10)], s=0.7)
 	#ax.scatter(X,Y,Z)
 	#ax.set_zlim(0,500)
 	plt.show()

@@ -59,7 +59,7 @@ for times in range(100):
 	############## Start Training ##################
 	epoch = 15000
 	for _ in range(epoch*3):
-		trainX , trainY = next_batch(10000,range=def_range)
+		trainX , trainY = next_batch(sc,range=def_range)
 		if _ < epoch*3:
 			sess.run(train_step,feed_dict={	x : trainX,	y_ : trainY	})
 		else:
