@@ -16,7 +16,7 @@ ax1.plot(row[:,0] , row[:,1] ,	label="training_acc" , color='blue')
 ax1.plot(row[:,0] , row[:,4] , '--' , label="testing_acc" , color='blue')
 ax2.set_ylabel("sensitivity")
 ax2.plot(row[:,0] , row[:,3]   ,label="training_sensitivity" , color='red')
-#ax2.plot(row[:,0] , row[:,5] , '--' ,label="testing_sensitivity" , color='red')
+ax2.plot(row[:,0] , row[:,5] , '--' ,label="testing_sensitivity" , color='red')
 plt.legend()
 
 fig.tight_layout()

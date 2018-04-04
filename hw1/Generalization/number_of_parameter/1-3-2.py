@@ -80,8 +80,8 @@ for time_stamp in range(100):
 	print("\x1B[0m",end='')
 	recorder.append(this_record)
 
-import csv 
-cout = csv.writer(open('1-3-2_few_v4.csv' , 'w'))
-cout.writerows(recorder)
+# import csv 
+# cout = csv.writer(open('1-3-2_few_v4.csv' , 'w'))
+# cout.writerows(recorder)
 
 ############### Output Prepare ###################

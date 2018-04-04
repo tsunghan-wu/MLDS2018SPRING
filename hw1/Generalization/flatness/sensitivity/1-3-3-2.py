@@ -16,7 +16,7 @@ def cret(shape):
 epoch = 200000
 neuron = [28*28,10,10,10,10]
 learning_rate= 1e-4
-saving_name = '1-3-3-2_record'
+saving_name = '1-3-3-2_record_2'
 #bt = [100,1000,10000,50000]
 training_batch = 1000
 

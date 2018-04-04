@@ -114,4 +114,4 @@ for rate in np.arange(-1,2,0.01):
 	print("(m)rate:%.3f,\tacc:%.2f,\tloss:%.5f,\ttest_acc:%.2f,\ttest_loss:%.5f"%record_data)
 	recorder.append(record_data)
 
-np.save(saving_name,np.array(recorder))
+# np.save(saving_name,np.array(recorder))

@@ -1,5 +1,5 @@
 import tensorflow as tf 
-import models
+# import models
 def init_weights(shape):
 	return tf.Variable(tf.truncated_normal(shape, stddev=0.1))
 
@@ -15,6 +15,7 @@ def max_pool_2x2(x):
 	# 1 [x_strides , y_strides] 1
 
 def model(x,params=[700,700,700,10]):
+	print (params)
 	x_image = tf.reshape(x, [-1, 28 * 28])
 
 	neuron = params
