@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 cin1 = csv.reader(open('error_table_cnn2_dim40.csv' , 'r'))
 cin2 = csv.reader(open('error_table_cnn2_dim32_64_32.csv' , 'r'))
-cin3 = csv.reader(open('error_table_cnn3_dim32_64_32.csv' , 'r')) 
+cin3 = csv.reader(open('error_table_cnn3_dim30_30.csv' , 'r')) 
 
 r1 = np.array([row for row in cin1]).astype(np.float)
 r2 = np.array([row for row in cin2]).astype(np.float)
@@ -27,15 +27,16 @@ row3 = np.array(row3)
 
 
 print(row1)
-plt.xlim(0,100000)
-
+plt.xlim(-2000,100000)
+plt.ylim(0.5, 3.0)
 # 0 : epoch 1 : acc 2 : loss
-#plt.ylabel("log2(loss)")
-plt.ylabel("training_accuracy")
+cur = 2
+plt.ylabel("log2(loss)")
+#plt.ylabel("training_accuracy")
 plt.xlabel("epoch(10mean)")
-plt.plot(row1[:,0] , row1[:,1] , label="error_table_cnn2_dim40")
-plt.plot(row2[:,0] , row2[:,1] , label="error_table_cnn2_dim32_64_32")
-plt.plot(row3[:,0] , row3[:,1] , label="error_table_cnn3_dim32_64_32")
+plt.plot(row1[:,0] , row1[:,cur] , label="error_table_cnn2_dim40")
+plt.plot(row2[:,0] , row2[:,cur] , label="error_table_cnn2_dim32_64_32")
+plt.plot(row3[:,0] , row3[:,cur] , label="error_table_cnn3_dim30_30")
 plt.legend()
 plt.show()
 
