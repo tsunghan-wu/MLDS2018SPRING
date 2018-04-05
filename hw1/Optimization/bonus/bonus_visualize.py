@@ -27,7 +27,7 @@ out = np.load("pca_tsne_final.npy")
 print('finish fitting')
 #print(out.shape)
 #exit()
-dim = 2
+dim = 3
 if dim == 3: # 3D
 	fig = plt.figure()
 	ax = Axes3D(fig)
