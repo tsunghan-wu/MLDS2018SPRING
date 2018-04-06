@@ -4,7 +4,7 @@ There are so many small task in this homework, and here we give you the link to 
 
 ### 1. Deep and Shallow
 
-#### [1-1 simulate a function](./Deep_and_shallow/function/README.md)
+#### [1-1 simulate a function](./Deep_and_shallow/function/)
 
 #### [1-2 an actual task](./Deep_and_shallow/actual_task/README.md)
 
