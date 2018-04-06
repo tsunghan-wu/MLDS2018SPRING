@@ -1,20 +1,27 @@
-1-1-1: simulate a function.
-two funciton can be seen on the top of file "hw1-1.py"
-choose one of the three model in the middle of hw1-1.py
-* choose_model = 1 : 1layer
-* choose_model = 2 : 3layer
-* choose_model = 3 : 5layer
+## MLDS HW1 
 
-Weierstrass function:
-* the error rate can be seen in 1-1-1-1/err_summary.py
-* the result line can be seen in 1-1-1-1/summary2.py
-sin(x) + cos(x^2)
-* the error rate can be seen in 1-1-1-2/err_summary.py
-* the result line can be seen in 1-1-1-2/summary2.py
+There are so many small task in this homework, and here we give you the link to see each small task.
 
+### 1. Deep and Shallow
 
-1-1-2: train in actual task.
+#### [1-1 simulate a function](./Deep_and_shallow/function/README.md)
 
+#### [1-2 an actual task](./Deep_and_shallow/actual_task/README.md)
 
+### 2. Optimization
 
+#### [2-1 visualize the optimization process](./Optimization/visualize/README.md)
 
+#### [2-2 gradient norm](./Optimization/gradient_norm/README.md)
+
+#### [2-3 gradient zero](./Optimization/gradient_zero/README.md)
+
+#### [2-4 visualize error surface](./Optimization/bonus/README.md)
+
+### 3. Gerneralization
+
+#### [3-1 random label](./Generalization/random_label/README.md)
+
+#### [3-2 number of parameter](./Generalization/number_of_parameter/README.md)
+
+#### [3-3 flatness v.s. generalization](./Generalization/flatness/README.md)
