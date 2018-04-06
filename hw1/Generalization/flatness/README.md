@@ -21,7 +21,7 @@ There are some files in the directory `sensitivity/`:
 1. code:
 	- `1-3-3-2.py` : training process (which will record training and testing accuracy + loss + sensitivity in `.npy` file)
 	- `visual-1-3-3-2.py` : read `.npy` file and plot the outcome picture
-2. `.npy` file : 
+2. `.npy` file : told before
 3. png file : the outcome
 
 ## Sharpness
