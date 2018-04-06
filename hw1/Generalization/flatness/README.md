@@ -28,7 +28,7 @@ There are some files in the directory `sensitivity/`:
 
 There are some files in the directories `bonus/`:
 1. code:
-	- `1-3-bonus,py`: training process (which will output ~~ in `.npy` file)
+	- `1-3-bonus,py`: training process (which will output some usrful data in `.npy` file)
 	- `visualize.py`: read `.npy` file and plot the outcome picture
 2. `.npy` file : told before
 3. png file : the outcome

@@ -6,7 +6,7 @@ Some files in this directory:
 
 1. code:
 	- `hw1-2-1.sh`: execute `hw1-2-1.py` for 8 times
-	- `hw1-2-1.py`: DNN code training on MINST (which will output `.csv` file including accuracy and parameters)
+	- `hw1-2-1.py`: DNN code training on designed function (which will output `.csv` file including accuracy and parameters)
 	- `1-2-1_visualize.py`: use PCA to achieve dimension reduction
 2. png file: outcome file
 
