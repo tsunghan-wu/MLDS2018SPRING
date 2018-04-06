@@ -1,3 +1,4 @@
+import sys
 import math
 import random
 import numpy as np
@@ -16,13 +17,13 @@ def cret(shape):
 epoch = 200000
 neuron = [28*28,10,10,10,10]
 learning_rate= 1e-4
-saving_name = '1-3-3-2_record_2'
-#bt = [100,1000,10000,50000]
-training_batch = 1000
+saving_name = sys.argv[1]
+bt = [100*i for i in range(1, 50)]
+# training_batch = 1000
 
 recorder=[]
-#for training_batch in bt:
-for learning_rate in [1e-2,1e-3,1e-4]:
+for training_batch in bt:
+# for learning_rate in [1e-2,1e-3,1e-4]:
 	tf.reset_default_graph()	
 	############ Model Preparing ################
 	x = tf.placeholder( tf.float32 , [None , 28*28])
@@ -48,7 +49,7 @@ for learning_rate in [1e-2,1e-3,1e-4]:
 	
 	sess = tf.Session()
 
-	writer = tf.summary.FileWriter("/tmp/tensorflow/MNIST", sess.graph)
+	# writer = tf.summary.FileWriter("/tmp/tensorflow/MNIST", sess.graph)
 	loss = tf.nn.softmax_cross_entropy_with_logits_v2(logits =y,labels =y_)
 	train_step = tf.train.AdamOptimizer(learning_rate).minimize(loss)
 	correct_pred = tf.equal( tf.argmax(y,1) , tf.argmax(y_,1) )
