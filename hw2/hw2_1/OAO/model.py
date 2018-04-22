@@ -67,8 +67,7 @@ class im2txt:
 			memory=encoder_outputs, scale = True)
 
 		attention_decoder = seq2seq.AttentionWrapper(
-			decoder_cell, attention_mechanism,
-			#alignment_history=True, output_attention=True,
+			decoder_cell, attention_mechanism, output_attention=True,
 			name = 'attention_wrapper')
 
 		decoder_initial_state = attention_decoder.zero_state(batch_size,tf.float32).clone(cell_state = encoder_state)
