@@ -15,9 +15,9 @@ import pandas as pd
 nltk.download('wordnet')
 lemmatizer = WordNetLemmatizer()
 
-label_path = 'MLDS_hw2_1_data/training_label.json'
+#label_path = 'MLDS_hw2_1_data/training_label.json'
+label_path = 'training_label.json'
 feat_path  = 'MLDS_hw2_1_data/training_data/feat'
-test_path  = 'MLDS_hw2_1_data/testing_data/feat'
 
 
 caption = json.load(open(label_path,'r'))
