@@ -11,14 +11,14 @@
 
 1. Inference mode
 
-	`bash hw2_seq2seq.sh $1 $2`
+	`./hw2_seq2seq.sh $1 $2`
 
 	- $1 is the input file preprocessed by `jieba` (use space to split chinese words)
 	- $2 is the output file
 
 2. Training mode
 
-	`bash hw2_seq2seq_train.sh $1 $2`
+	`./hw2_seq2seq_train.sh $1 $2`
 
 	- $1 is the path where you want to save your model
 	- $2 is log file path
