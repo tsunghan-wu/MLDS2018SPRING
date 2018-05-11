@@ -5,7 +5,7 @@
 - python standard library (sys, pickle, argparse ...)
 - numpy 1.14.2
 - pandas 0.22.0
-- tensorflow 1.16.0
+- tensorflow 1.6.0
 
 ### How to use it
 
