@@ -1,4 +1,5 @@
 ## MLDS HW2-2 Seq2seq Chatbot
+---
 
 ### Package usage
 
@@ -18,14 +19,14 @@
 
 2. Training mode
 
-	`bash seq3seq_train.sh $1 $2`
+	`bash seq2seq_train.sh $1 $2`
 
 	- $1 is the path where you want to save your model
 	- $2 is log file path
 
 ### File in this directory
 
-1. Model (execute `seq2seq.sh $1 $2` and you will download it)
+1. Model (execute two shell scripts and you will download it)
 	- `data_class` : data loader / processing pickle file
 	- `model/` : tensorflow model (checkpoint)
 
