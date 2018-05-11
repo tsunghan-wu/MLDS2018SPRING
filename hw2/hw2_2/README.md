@@ -30,7 +30,7 @@
 	- `model/` : tensorflow model (checkpoint)
 
 2. Python code
-	- `data_v5` : data loader / processing source code
+	- `data_v5.py` : data loader / processing source code
 	- `model.py` : tensorflow seq2seq model
 	- `model_seq2seq.py` : training mode main function
 	- `reload.py` : inference mode main function
