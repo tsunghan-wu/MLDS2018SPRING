@@ -25,7 +25,7 @@
 
 ### File in this directory
 
-1. Model
+1. Model (execute `seq2seq.sh $1 $2` and you will download it)
 	- `data_class` : data loader / processing pickle file
 	- `model/` : tensorflow model (checkpoint)
 
