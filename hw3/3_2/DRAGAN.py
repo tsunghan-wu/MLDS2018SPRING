@@ -171,7 +171,7 @@ def testing(batch_size ,tag_file = 'my_testing_tags.txt'):
 	np.save('tmp_result.npy' , all_output)
 	
 if __name__ == '__main__':
-	seed = 8989
+	seed = 44444
 	if len(sys.argv) == 3:
 		seed = sys.argv[2]
 	tf.set_random_seed(seed)
