@@ -1,0 +1,5 @@
+model_checkpoint_path: "wgan_gp.ckpt"
+all_model_checkpoint_paths: "../epoch79/wgan_gp.ckpt"
+all_model_checkpoint_paths: "../epoch80/wgan_gp.ckpt"
+all_model_checkpoint_paths: "../epoch81/wgan_gp.ckpt"
+all_model_checkpoint_paths: "wgan_gp.ckpt"
