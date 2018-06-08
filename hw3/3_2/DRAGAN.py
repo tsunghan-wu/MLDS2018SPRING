@@ -198,5 +198,5 @@ if __name__ == '__main__':
 			saver = tf.train.Saver()
 			sess.run(tf.global_variables_initializer())
 			print('start to restore')
-			saver.restore(sess, "./epoch82/wgan_gp.ckpt")
+			saver.restore(sess, "./3_2/epoch82/wgan_gp.ckpt")
 			testing(batch_size , sys.argv[1])
