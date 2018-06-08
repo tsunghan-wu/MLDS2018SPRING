@@ -46,7 +46,7 @@ if __name__ == '__main__':
 	data = pickle.load(open('processed_training_data_v2','rb'))
 	#data = pickle.load(open('raw_training_data_v2','rb'))
 	test_data = pickle.load(open('reduce_test_data','rb'))
-	print('word_dim : ', data.word_dim)
+	#print('word_dim : ', data.word_dim)
 	read_config('model.config')
 	
 	timesteps = 80
