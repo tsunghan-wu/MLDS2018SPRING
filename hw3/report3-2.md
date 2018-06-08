@@ -3,7 +3,7 @@
 #### 2. text-to-image generation
 
 1. Model
-   ![model](/home/arvin/Desktop/class/MLDS2018SPRING/hw3/model.png)
+   ![model](./model.png)
    * add batch norm$(0.9,0.999)$ and leaky relu$(0.2)$ between every transform without output layer and input layer.
      * generator output's acivation is $tanh$.
    * all convolution layer and deconvolution layer are setting to $strides=(2,2) , filter\,\,size=(5,5)$ except the last conv in the generator.
