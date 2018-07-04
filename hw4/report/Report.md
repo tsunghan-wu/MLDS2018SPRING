@@ -50,3 +50,74 @@ Dense(512, 4) (action數是4)
 	- 由圖看出在Dueling + Dobule DQN在後期會有大震盪的狀況，而這是在原本只有Double DQN不曾出現的狀況
 
 ### 4-3 Actor Critic
+
+#### 4-3-1 Actor Critic Model
+
+##### Pong
+
+```
+# Dense * 2
+Input (80 * 80)
+Linear (6400, 256) + ReLU
+-> Actor  : Linear (256, 2) + Softmax 
+-> Critic : Linear (256, 1)
+```
+其他參數：
+- Optimizer: adam, lr=$10^{-4}$
+- Reward Discount: 0.99
+
+##### Breakout
+
+```
+# CNN * 3 + Dense * 2
+CNN (in_channel=4, out_channel=16, kernel=8, stride=4) + ReLU
+CNN (in_channel=16, out_channel=32, kernel=4, stride=2) + ReLU
+CNN (in_channel=32, out_channel=64, kernel=3, stride=1) + ReLU
+-> Actor : 
+	Linear (64 * 7 * 7, 512) + ReLU -> Linear (512, 4) + Softmax
+-> Critic : 
+	Linear (64 * 7 * 7, 512) + ReLU -> Linear (512, 1)
+```
+
+#### 4-3-2 Learning Curve
+| Pong | Breakout |
+| :-----: | :-----: |
+| <img src="./AC_pong.png"></img>| <img src="AC_breakout.png"></img>| 
+
+#### 4-3-3 One improvement method of Actor-Critic
+
+##### Model Description
+
+```
+# A3CLSTM
+CNN (in_channel=4, out_channel=32, kernel=5, stride=1) + Maxpooling + ReLU
+CNN (in_channel=32, out_channel=32, kernel=5, stride=1) + Maxpooling + ReLU
+CNN (in_channel=32, out_channel=64, kernel=3, stride=1) + Maxpooling + ReLU
+h, c = LSTM(1024, 512)
+-> Actor  : Linear (512, action_num) + Softmax
+-> Critic : Linear (512, 1)
+```
+
+其他參數：
+- Optimizer: Shared Adam, lr=$10^{-4}$
+- Number of process: 4
+
+##### Learning Curve
+
+| Policy Gradient | A3C |
+| :-----: | :-----: |
+| <img src="./pg_learning_curve.png"></img>| <img src="A3C_pong.png"></img>| 
+
+| Double DQN | A3C |
+| :-----: | :-----: |
+| <img src="./DDQN.png"></img>| <img src="A3C_breakout.png"></img>| 
+
+上面第一個表格是pong的Learning Curve，下面第二個表格則是breakout的Learning Curve。可以明顯看到使用A3C的效能遠高於我們原本的DQN以及Policy Gradient。
+
+##### Reference
+- https://github.com/dgriff777/rl_a3c_pytorch
+
+#### 分工表
+- 4-1: b05902127 劉俊緯
+- 4-2: b05902013 吳宗翰
+- 4-3: b05902013 吳宗翰
