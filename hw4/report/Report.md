@@ -3,10 +3,49 @@
 
 ### 4-1 Policy Gradient
 
+#### 4-1-1 Policy Gradient model
+
+##### Model
+
+| layer  | RGB image from observation     | Shape                      |
+| ------ | ------------------------------ | -------------------------- |
+| perpro | TA的preprocess code.           | observation -> 80*80 image |
+| hidden | Dense(128 , activation='relu') | (None,6400) -> (None,128)  |
+| output | Dense(6,activation='softmax')  | (None,128) -> (None,6)     |
+
+##### Details
+
+| Details        | Parameteres                   |
+| -------------- | ----------------------------- |
+| Optimizer      | pyTorch's 預設 Adam， lr=1e-4 |
+| Discount value | 0.99                          |
+
+#### 4-1-2 Plot the learning curve to show the performance of your Policy Gradient on Pong 
+
+<img src="pg_learning_curve.png" style="zoom: 50%"></img>
+
+#### 4-1-3 Implement 1 improvement method on page 8
+##### Describe your tips for improvement 
+
+* variance reduction - 加入 baseline
+* 我們使用最靠近現在的10000步的rewards(包含被discount的部份)作為我們的mean。
+* 要更新參數的時候，計算loss前的reward會-= mean。
+
+##### Learning curve 
+
+* 有baseline的learning curve一起畫在上面了。
+
+##### Compare to the vallina policy gradient
+
+* 我們會看到一般的pg相較於reduce variance的版本，會學習的非常緩慢。因為一般的pg variance非常大。原本在計算pg的公式的時候，因為我們不會知道policy的期望值是多少，所以才用採樣的方式去逼近。但是要是原本的distribution variance非常大，那麼採樣的可信度會大幅下降。例如只要採樣時的variance變大，在同個信賴區間的機率就會變低。
+* 而為什麼增加baseline就會降低variance，這件事情在課堂上已經有證明了。
+* 因此，我認為一般的pg可能因為期望值預測不準確導致學習叫緩慢。
+
+>  proof : https://en.wikipedia.org/wiki/Variance_reduction
 
 ### 4-2 Deep Q Learning
 
-#### DQN Model
+#### 4-2-1 DQN Model
 
 1. Network Structure 
 
@@ -31,19 +70,19 @@ Dense(512, 4) (action數是4)
 	- $\gamma = 0.99$
 	- $\epsilon$ greedy使用Linear Decay，總共訓練500萬個iteration，不過只有在前面$0.3 \times 5000000$個iteration從1降到0.025。其餘的iteration都是$\epsilon=0.025$
 
-#### Learning Curve 
+#### 4-2-2 Learning Curve 
 
-<img src="DDQN.png" style="zoom: 40%"></img>
+<img src="DDQN.png" style="zoom: 45%"></img>
 
-#### Implement 1 improvement method
+#### 4-2-3 Implement 1 improvement method
 
 1. Tips
 	- 基於第一題的Double DQN再加上Dueling上去
-	- 基本上就按照投影片上面所述在最後一層做分岔然後再加起來
+	- 基本上就按照投影片上面所述在最後一層做分岔然後再加起來，簡單更改network structure而已
 
 2. Learning Curve
 
-<img src="DDDQN.png" style="zoom: 40%"></img>
+<img src="DDDQN.png" style="zoom: 45%"></img>
 
 3. Compare to origin one
 	- 由圖看出有沒有多加上Dueling在收斂時間上並沒有太大的差距，另外在最終的表現上也差不多
@@ -82,8 +121,8 @@ CNN (in_channel=32, out_channel=64, kernel=3, stride=1) + ReLU
 #### 4-3-2 Learning Curve
 | Pong | Breakout |
 | :-----: | :-----: |
-| <img src="./AC_pong.png"></img>| <img src="AC_breakout.png"></img>| 
-
+| <img src="./AC_pong.png"></img>| <img src="AC_breakout.png"></img>|
+可以看到Actor Critic在Pong上面表現的跟使用單純Policy Gradient差不多，不過breakout則是train不太起來。不過在後面有看到是有上升趨勢的，在4-3-3inference別人的A3C就看到他跑起來了，因此估計是跑得起來的。另外也有猜測像是Breakout這類有明顯reward的遊戲使用DQN就算很穩了。
 #### 4-3-3 One improvement method of Actor-Critic
 
 ##### Model Description
@@ -106,11 +145,11 @@ h, c = LSTM(1024, 512)
 
 | Policy Gradient | A3C |
 | :-----: | :-----: |
-| <img src="./pg_learning_curve.png"></img>| <img src="A3C_pong.png"></img>| 
+| <img src="./pg_learning_curve.png"></img>| <img src="A3C_pong.png"></img>|
 
 | Double DQN | A3C |
 | :-----: | :-----: |
-| <img src="./DDQN.png"></img>| <img src="A3C_breakout.png"></img>| 
+| <img src="./DDQN.png"></img>| <img src="A3C_breakout.png"></img>|
 
 上面第一個表格是pong的Learning Curve，下面第二個表格則是breakout的Learning Curve。可以明顯看到使用A3C的效能遠高於我們原本的DQN以及Policy Gradient。
 
